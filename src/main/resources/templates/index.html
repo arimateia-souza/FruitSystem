@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FruitMart</title>
+    <link th:href="@{/css/estilo.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/js/script.js}" defer></script>
+
+</head>
+<body>
+
+
+<div th:replace="/fragments/cabecalho ::cabecalho"></div>
+<div th:replace="/fragments/principal :: principal"></div>
+<div th:replace="/fragments/rodape :: rodape"></div>
+
+</body>
+</html>
