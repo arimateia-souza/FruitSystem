@@ -48,4 +48,8 @@ public class FrutaService {
             throw new FrutaNotFoundException("Fruta não encontrada");
         }
     }
+
+    public Optional<Fruta> findById(Long id){
+        return repository.findById(id);
+    }
 }
