@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>$FruitsMart$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<!-- Section-->
+<section th:fragment="principal"  class="py-5" >
+    <div class="container px-4 px-lg-5 mt-5" th:each="fruta: ${ListarFrutas}">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder"><td th:text="${fruta.nome}"></td></h5>
+                            <!-- Product price-->
+                            <td R$ th:text="${fruta.preco}"></td>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"th:href="@{'/adicionarCarrinho/'+*{fruta.id}}"> Adicionar ao carrinho</a></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
