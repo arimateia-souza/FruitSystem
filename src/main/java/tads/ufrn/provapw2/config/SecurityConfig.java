@@ -1,11 +1,13 @@
 package tads.ufrn.provapw2.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -13,8 +15,8 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/cadastrarPage").hasRole("ADMIN");
-                    auth.requestMatchers("/editarPage/**").hasRole("USER");
+                    auth.requestMatchers("/admin", "/cadastro","/salvar", "/editar", "/deletar" ).hasRole("ADMIN");
+                    auth.requestMatchers("/verCarrinho/", "/adicionarCarrinho", "/finalizarCompra").hasRole("USER");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(login -> login.loginPage("/login").permitAll())
@@ -26,8 +28,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    BCryptPasswordEncoder encoder() {
-
+    BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 }
