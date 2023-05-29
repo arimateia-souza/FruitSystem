@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tads.ufrn.provapw2.model.Fruta;
 import tads.ufrn.provapw2.model.Usuario;
 import tads.ufrn.provapw2.service.FrutaService;
+import tads.ufrn.provapw2.service.UsuarioService;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,17 +42,23 @@ public class FrutaController {
         return "cadastrarPage.html";
     }
     @PostMapping("/salvar")
-    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors ){
+    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors, RedirectAttributes redirectAttributes ){
+
         if (errors.hasErrors()){
             return "cadastrarPage";
         }else{
+            redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
+
             frutaService.salvarFruta(f);
-            return "redirect:/index";
+            return "redirect:/admin";
         }
     }
 
     @GetMapping(value = "/deletar/{id}")
-    public String deletarFruta(@PathVariable long id){
+    public String deletarFruta(@PathVariable long id, RedirectAttributes redirectAttributes){
+
+        redirectAttributes.addFlashAttribute("mensagem", "A fruta foi deletada com sucesso.");
+
         frutaService.deletarFruta(id);
         return "redirect:/index";
     }
@@ -75,6 +83,9 @@ public class FrutaController {
     }
     @GetMapping("/admin")
     public String getAdminPage(Model model) {
+
+
+
 
         List<Fruta> frutas = frutaService.listarFrutas();
         model.addAttribute("listarFrutas", frutas);

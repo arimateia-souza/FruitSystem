@@ -20,8 +20,15 @@
 
 <!--Fragmento dos cards de frutas //lista as frutas do banco em cards  -->
 
+<!--Mensagem de atualização -->
+<div th:if="${mensagem}">
+
+    <p th:text="${mensagem}"></p>
+</div>
+
 
 <div th:replace="/fragments/listaFrutas :: lista"></div>
+
 
 
 <!--Fragmento do rodapé -->
