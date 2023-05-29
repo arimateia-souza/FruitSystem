@@ -23,13 +23,14 @@ public class FrutaController {
     @RequestMapping(value = {"/", "/index", "/index.html"}, method = RequestMethod.GET)
     public String getIndex(Model model) {
 
-        List<Fruta> ListarFrutas = frutaService.listarFrutas();
-        model.addAttribute("ListarFrutas", ListarFrutas);
+        List<Fruta> frutas = frutaService.listarFrutas();
+        model.addAttribute("listarFrutas", frutas);
         //Cookie cookie = new Cookie("carrinhoCompras","");
        // cookie.setMaxAge(60*60*24);
         //model.addCookie(cookie);
         return "index.html";
     }
+
     @GetMapping("/cadastro")
     public String getCadastrarPage(Model model) {
         Fruta f = new Fruta();

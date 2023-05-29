@@ -1,42 +1,31 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
-<body>
-<!--Fragmento do de card pra listar todas as frutas  -->
 
-<section class="py-5" th:fragment="frutas"><!--nome do fragmento-->
+<section class="py-5" th:fragment="cardFrutas">
 
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-            <div class="col mb-5" th:each="fruta : ${frutas}" th:object="${fruta}">
+            <div class="col mb-5" th:each="fruta : ${listarFrutas}" th:object="${fruta}">
                 <div class="card h-100">
-                    <!--<img class="card-img-top" th:src="@{/}" alt="..." />  -->
-
                     <div class="card-body p-4">
                         <div class="text-center">
-                            <h5 class="fw-bolder" th:text="*{frutas.nome}"></h5>
+
+                            <h5 class="fw-bolder" th:text="*{nome}"></h5>
                             <div class="justify-content-center small text-dark mb-2">
-                                ID:<div class="bi-star-fill" th:text="*{fruta.id}"></div><br/>
-                                Nome:<div class="bi-star-fill" th:text="*{fruta.nome}"></div><br/>
-                                Categoria:<div class="bi-star-fill" th:text="*{fruta.categoria}"></div><br/>
-                                Estoque:<div class="bi-star-fill" th:text="*{fruta.qtdEstoque}"></div><br/>
+                                ID:<div class="bi-star-fill" th:number="*{id}"></div><br/>
+                                Categoria:<div class="bi-star-fill" th:text="*{categoria}"></div><br/>
+                                Em estoque:<div class="bi-star-fill" th:number="*{qtdEstoque}"></div><br/>
+
                             </div>
-                            R$<p th:text="*{frutas.preco}"></p>
+                            R$ <p  th:number="*{preco}"></p>
                         </div>
                     </div>
                     <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" >">Adicionar ao carrinho</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
-</body>
 </html>
