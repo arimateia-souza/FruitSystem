@@ -1,15 +1,16 @@
 package tads.ufrn.provapw2.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import tads.ufrn.provapw2.model.Fruta;
 import tads.ufrn.provapw2.service.FrutaService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class FrutaController {
@@ -22,9 +23,11 @@ public class FrutaController {
 
         List<Fruta> ListarFrutas = frutaService.listarFrutas();
         model.addAttribute("ListarFrutas", ListarFrutas);
+        //Cookie cookie = new Cookie("carrinhoCompras","");
+       // cookie.setMaxAge(60*60*24);
+        //model.addCookie(cookie);
         return "index.html";
     }
-
 
 
 
