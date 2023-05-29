@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<body>
+
+<form th:action="@{/salvar}" th:object="${fruta}" method="post" th:fragment="formCadastrarFruta" >
+
+  Nome: <input type="text" th:field="*{nome}">
+  <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+
+  Preço: <input type="number" th:field="*{preco}">
+  <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
+
+  Categoria: <input type="text" th:field="*{categoria}">
+  <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></p>
+
+  Quantidade em Estoque: <input type="number" th:field="*{qtdEstoque}">
+  <p th:if="${#fields.hasErrors('qtdEstoque')}" th:errors="*{qtdEstoque}"></p>
+
+  Imagem: <input type="file" th:field="*{imageUri}">
+  <p th:if="${#fields.hasErrors('imageUri')}" th:errors="*{imageUri}"></p>
+
+  <button type="submit">Cadastrar</button>
+</form>
+
+
+</body>
+</html>
+
+
+
