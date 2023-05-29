@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import tads.ufrn.provapw2.model.Fruta;
+import tads.ufrn.provapw2.model.Usuario;
 import tads.ufrn.provapw2.service.FrutaService;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class FrutaController {
     public String getIndex(Model model) {
 
         List<Fruta> frutas = frutaService.listarFrutas();
+
         model.addAttribute("listarFrutas", frutas);
         //Cookie cookie = new Cookie("carrinhoCompras","");
        // cookie.setMaxAge(60*60*24);
@@ -38,7 +40,7 @@ public class FrutaController {
         return "cadastrarPage.html";
     }
     @PostMapping("/salvar")
-    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors){
+    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors ){
         if (errors.hasErrors()){
             return "cadastrarPage";
         }else{
@@ -66,6 +68,18 @@ public class FrutaController {
         return "editarPage";
     }
 
+    @GetMapping("/sobre")
+    public String getSobrePage(Model model) {
+
+        return "sobrePage.html";
+    }
+    @GetMapping("/admin")
+    public String getAdminPage(Model model) {
+
+        List<Fruta> frutas = frutaService.listarFrutas();
+        model.addAttribute("listarFrutas", frutas);
+        return "admFrutaPage";
+    }
 
 }
 

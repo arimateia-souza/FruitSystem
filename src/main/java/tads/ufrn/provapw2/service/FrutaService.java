@@ -22,6 +22,7 @@ public class FrutaService {
     }
 
     public List<Fruta> listarFrutas() {
+
         return repository.findByDeletedIsNull();
     }
 

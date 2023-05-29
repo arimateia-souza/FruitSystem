@@ -3,10 +3,10 @@ package tads.ufrn.provapw2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import tads.ufrn.provapw2.model.Fruta;
 import tads.ufrn.provapw2.model.Usuario;
+import tads.ufrn.provapw2.service.FrutaService;
 import tads.ufrn.provapw2.service.UsuarioService;
 
 import java.util.List;
@@ -16,6 +16,8 @@ import java.util.List;
 public class UsuarioController {
 
     UsuarioService service;
+    FrutaService frutaService;
+
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
@@ -46,5 +48,4 @@ public class UsuarioController {
 
         return "listUsuarios";
     }
-
 }
