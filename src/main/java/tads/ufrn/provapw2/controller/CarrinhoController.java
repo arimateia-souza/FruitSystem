@@ -6,13 +6,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import tads.ufrn.provapw2.model.Fruta;
 import tads.ufrn.provapw2.service.FrutaService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class CarrinhoController {
     @GetMapping("/adicionarCarrinho")
     public void adicionarAoCarrinho(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtém o ID do item a ser adicionado ao carrinho a partir dos parâmetros da solicitação
+        System.out.println("retrfdcuytfguyjgiuk");
         Long id = Long.parseLong(request.getParameter("id"));
 
         // Busca o item no banco de dados pelo ID
@@ -47,6 +49,57 @@ public class CarrinhoController {
 
             // Adiciona a fruta ao carrinho
             carrinho.add(fruta);
+            System.out.println(carrinho);
+        }
+        Cookie cookie = new Cookie("visita", LocalDateTime.now().toString());
+        cookie.setMaxAge(24 * 60 * 60); // Define a duração do cookie para 24 horas
+        response.addCookie(cookie);
+
+
+        // Redireciona para a página index
+        response.sendRedirect("/carrinho"); // aletarar para direcionar para ver carrinho
+    }
+
+    @GetMapping("/verCarrinho")
+    public void verCarrinho(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+
+        // Verifica se a sessão existe e se o carrinho está presente
+        if (session != null) {
+            List<Fruta> carrinho = (List<Fruta>) session.getAttribute("carrinho");
+
+            // Verifica se o carrinho está vazio
+            if (carrinho != null && !carrinho.isEmpty()) {
+                // Lista os itens no carrinho
+                for (Fruta fruta : carrinho) {
+                    System.out.println(fruta);
+
+                }
+            } else {
+                // Se o carrinho estiver vazio, redireciona para '/index' com uma mensagem de carrinho vazio
+                response.sendRedirect("/index?msg=Carrinho vazio");
+                return;
+            }
+        } else {
+            // Sessão não encontrada, redireciona para /index com uma mensagem de erro
+            response.sendRedirect("/index?msg=Erro de sessão");
+            return;
+        }
+
+        // Adiciona o link para a rota /finalizarCompra
+
+        response.sendRedirect("/verCarrinho");
+
+
+    }
+
+    @GetMapping("/finalizarCompra")
+    public void finalizarCompra(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+
+        // Invalida a sessão existente
+        if (session != null) {
+            session.invalidate();
         }
 
         // Redireciona para a página index
@@ -54,14 +107,6 @@ public class CarrinhoController {
     }
 
 
-
-
-//    @GetMapping("/finalizarCompra")
-//    public String finalizarCompra(HttpServletRequest request, HttpServletResponse response){
-//        Cookie carrinhoCompras = new Cookie("carrinhoCompras", "");
-//        response.addCookie(carrinhoCompras);
-//        return "redirect:/index";
-//    }
 
 
 
