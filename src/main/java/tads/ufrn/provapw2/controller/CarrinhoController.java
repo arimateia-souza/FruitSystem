@@ -57,7 +57,7 @@ public class CarrinhoController {
 
 
         // Redireciona para a página index
-        response.sendRedirect("/carrinho"); // aletarar para direcionar para ver carrinho
+        response.sendRedirect("/index");
     }
 
     @GetMapping("/verCarrinho")
