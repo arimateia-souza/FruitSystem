@@ -17,6 +17,10 @@
 <div th:replace="/fragments/cabecalho ::cabecalho"></div>
 
 
+<!-- ... seu conteúdo HTML ... -->
+<div th:if="${mensagem}" class="mensagem-sucesso">
+    <p th:text="${mensagem}"></p>
+</div>
 
 <!--Fragmento dos cards de frutas //lista as frutas do banco em cards  -->
 
