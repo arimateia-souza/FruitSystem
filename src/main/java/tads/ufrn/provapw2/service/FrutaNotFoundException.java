@@ -5,4 +5,3 @@ public class FrutaNotFoundException extends RuntimeException {
         super(message);
     }
 }
-

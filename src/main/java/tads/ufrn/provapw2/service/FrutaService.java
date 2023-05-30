@@ -49,8 +49,13 @@ public class FrutaService {
             throw new FrutaNotFoundException("Fruta não encontrada");
         }
     }
+    public Fruta editar(Fruta f){
+        return repository.saveAndFlush(f);
+    }
 
     public Optional<Fruta> findById(Long id){
         return repository.findById(id);
     }
+
+
 }
