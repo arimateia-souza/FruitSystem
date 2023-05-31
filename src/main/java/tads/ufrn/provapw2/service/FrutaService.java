@@ -13,7 +13,6 @@ public class FrutaService {
     private FrutaRepository repository;
 
     public FrutaService(FrutaRepository frutaRepository) {
-
         this.repository = frutaRepository;
     }
 

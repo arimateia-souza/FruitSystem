@@ -16,7 +16,7 @@
 
 
 
-<form method="post" th:action="@{/salvar}" th:object="${fruta}">
+<form method="post" th:action="@{/salvar}" th:object="${fruta}" enctype="multipart/form-data" >
 
   <input type="hidden" th:field="*{id}">
 
@@ -24,6 +24,8 @@
   Preco: <input type="number" th:field="*{preco}"> <br />
   Categoria: <input type="text" th:field="*{categoria}"> <br/>
   Quantidade em estoque: <input type="number" th:field="*{qtdEstoque}"> <br />
+  Imagem: <input type="file" name="file">
+
   <button type="submit" >Finalizar edição</button>
 
 </form>

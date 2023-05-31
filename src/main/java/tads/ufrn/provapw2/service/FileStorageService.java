@@ -5,15 +5,19 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+import tads.ufrn.provapw2.model.Fruta;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
 public class FileStorageService {
+
     private final Path root = Paths.get("src/main/webapp/WEB-INF/images");
 
     public FileStorageService() {
@@ -27,17 +31,24 @@ public class FileStorageService {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
     }
+    // ...
 
     public void save(MultipartFile file) {
         try {
-            String originalFilename = file.getOriginalFilename();
-            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String uniqueFilename = System.currentTimeMillis() + extension;
-
-            Files.copy(file.getInputStream(), this.root.resolve(uniqueFilename));
+            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
+    }
+
+
+    // Método para obter a extensão do arquivo
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            return fileName.substring(dotIndex);
+        }
+        return "";
     }
 
     public Resource load(String filename) {
