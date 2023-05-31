@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Ver Carrinho</title>
+</head>
+<body>
+<h1>Carrinho de Compras</h1>
+
+<form>
+    <tbody>
+    <!-- Itera sobre a lista de frutas do carrinho -->
+    <tr th:each="fruta : ${carrinho}" th:object="${fruta}">
+        <td>ID:</td>
+        <td th:text="*{id}"></td><br/>
+        <td>Nome:</td>
+        <td th:text="*{nome}"></td><br/>
+        <td>Preço:</td>
+        <td th:text="*{preco}"></td><br/>
+        <td>Categoria:</td>
+        <td th:text="*{categoria}"></td><br/>
+        <td>Em estoque:</td>
+        <td th:text="*{qtdEstoque}"></td><br/>
+
+    </tr>
+    </tbody>
+</form>
+
+<a href="/finalizarCompra" class="btn btn-primary">Finalizar Compra</a>
+
+<!-- Exibe mensagem de carrinho vazio ou erro de sessão -->
+<div th:if="${mensagem}">
+    <p th:text="${mensagem}"></p>
+</div>
+</body>
+</html>

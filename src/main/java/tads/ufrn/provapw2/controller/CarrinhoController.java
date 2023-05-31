@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import tads.ufrn.provapw2.model.Fruta;
 import tads.ufrn.provapw2.service.FrutaService;
@@ -51,7 +52,8 @@ public class CarrinhoController {
 
             // Atualiza o valor do carrinho no cookie
             int valorCarrinho = carrinho.size();
-            Cookie cookie = new Cookie("carrinho", String.valueOf(valorCarrinho));
+            Cookie cookie = new Cookie("visita", String.valueOf(valorCarrinho));
+
             cookie.setMaxAge(24 * 60 * 60); // Define a duração do cookie para 24 horas
             response.addCookie(cookie);
         }
@@ -63,45 +65,41 @@ public class CarrinhoController {
 
 
     @GetMapping("/verCarrinho")
-    public void verCarrinho(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String verCarrinho(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
 
         // Verifica se a sessão existe e se o carrinho está presente
         if (session != null) {
             List<Fruta> carrinho = (List<Fruta>) session.getAttribute("carrinho");
+            System.out.println("TEM FRUTA AQUI?" + carrinho);
 
             // Verifica se o carrinho está vazio
             if (carrinho != null && !carrinho.isEmpty()) {
-                // Lista os itens no carrinho
-                for (Fruta fruta : carrinho) {
-                    System.out.println(fruta);
-                }
+                // Adiciona o carrinho ao modelo
+                model.addAttribute("carrinho", carrinho);
             } else {
-                // Se o carrinho estiver vazio, redireciona para '/index' com uma mensagem de carrinho vazio
-                response.sendRedirect("/index?msg=Carrinho vazio");
-                return;
+                // Se o carrinho estiver vazio, adiciona uma mensagem ao modelo
+                model.addAttribute("mensagem", "Carrinho vazio");
             }
         } else {
-            // Sessão não encontrada, redireciona para /index com uma mensagem de erro
-            response.sendRedirect("/index?msg=Erro de sessão");
-            return;
+            // Sessão não encontrada, adiciona uma mensagem de erro ao modelo
+            model.addAttribute("mensagem", "Erro de sessão");
         }
 
-        // Adiciona o link para a rota /finalizarCompra
-        response.sendRedirect("/finalizarCompra");
+        // Retorna o nome da página Thymeleaf a ser exibida
+        return "carrinhoCompra";
     }
+
 
 
     @GetMapping("/finalizarCompra")
     public void finalizarCompra(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
 
-        // Invalida a sessão existente
         if (session != null) {
             session.invalidate();
         }
 
-        // Redireciona para a página index
         response.sendRedirect("/index");
     }
 
