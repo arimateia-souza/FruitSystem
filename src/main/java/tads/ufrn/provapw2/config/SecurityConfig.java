@@ -13,22 +13,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests(auth -> {
-//                    auth.requestMatchers("/admin", "/cadastro","/salvar", "/editar", "/deletar" ).hasRole("ADMIN");
-//                    auth.requestMatchers("/verCarrinho/", "/adicionarCarrinho", "/finalizarCompra").hasRole("USER");
-                    auth.anyRequest().permitAll();
-                })
-                .formLogin(login -> login.loginPage("/login").permitAll())
-                //.defaultSuccessUrl("/", true)
-                //.and()
-                .logout(logout -> logout.logoutUrl("/logout"))
-                //.and()
-                .build();
+//        return http
+//                .authorizeHttpRequests(auth -> {
+//                   auth.requestMatchers("/admin", "/cadastro","/salvar", "/editar", "/deletar" ).hasRole("ADMIN");
+//                   auth.requestMatchers("/verCarrinho/", "/adicionarCarrinho", "/finalizarCompra").hasRole("USER");
+//                    auth.anyRequest().permitAll();
+//                })
+//                .formLogin(login -> login.loginPage("/login").permitAll())
+//                .logout(logout -> logout.logoutUrl("/logout"))
+//                .build();
+        return http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.disable()).build();
     }
 
     @Bean
-    BCryptPasswordEncoder encoder(){
+    BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 }

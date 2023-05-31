@@ -2,13 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>FruitMart - Login</title>
+  <link th:href="@{/css/login-style.css}" rel="stylesheet" type="text/css" />
+  <script th:src="@{/js/script.js}" defer></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
-<body>
-<form th:action="@{/login}" method="post">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <button type="submit">Enviar</button>
-</form>
+<body class="login-page">
+<h1 class="title">FruitMart</h1>
+<div class="login-container">
+  <p class="login-message">Faça login ou cadastre-se</p>
+  <form th:action="@{/login}" method="post" class="center-form">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+<a th:href="@{/cadastrarUsuario}" class="cadastrar-link">Cadastre-se</a>
+
 </body>
 </html>

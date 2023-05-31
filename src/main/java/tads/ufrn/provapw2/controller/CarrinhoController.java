@@ -27,9 +27,8 @@ public class CarrinhoController {
     }
 
     @GetMapping("/adicionarCarrinho")
-    public void adicionarAoCarrinho(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void adicionarCarrinho(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtém o ID do item a ser adicionado ao carrinho a partir dos parâmetros da solicitação
-        System.out.println("retrfdcuytfguyjgiuk");
         Long id = Long.parseLong(request.getParameter("id"));
 
         // Busca o item no banco de dados pelo ID
@@ -49,16 +48,19 @@ public class CarrinhoController {
 
             // Adiciona a fruta ao carrinho
             carrinho.add(fruta);
-            System.out.println(carrinho);
-        }
-        Cookie cookie = new Cookie("visita", LocalDateTime.now().toString());
-        cookie.setMaxAge(24 * 60 * 60); // Define a duração do cookie para 24 horas
-        response.addCookie(cookie);
 
+            // Atualiza o valor do carrinho no cookie
+            int valorCarrinho = carrinho.size();
+            Cookie cookie = new Cookie("carrinho", String.valueOf(valorCarrinho));
+            cookie.setMaxAge(24 * 60 * 60); // Define a duração do cookie para 24 horas
+            response.addCookie(cookie);
+        }
 
         // Redireciona para a página index
         response.sendRedirect("/index");
     }
+
+
 
     @GetMapping("/verCarrinho")
     public void verCarrinho(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -73,7 +75,6 @@ public class CarrinhoController {
                 // Lista os itens no carrinho
                 for (Fruta fruta : carrinho) {
                     System.out.println(fruta);
-
                 }
             } else {
                 // Se o carrinho estiver vazio, redireciona para '/index' com uma mensagem de carrinho vazio
@@ -87,11 +88,9 @@ public class CarrinhoController {
         }
 
         // Adiciona o link para a rota /finalizarCompra
-
-        response.sendRedirect("/verCarrinho");
-
-
+        response.sendRedirect("/finalizarCompra");
     }
+
 
     @GetMapping("/finalizarCompra")
     public void finalizarCompra(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -105,9 +104,5 @@ public class CarrinhoController {
         // Redireciona para a página index
         response.sendRedirect("/index");
     }
-
-
-
-
 
 }

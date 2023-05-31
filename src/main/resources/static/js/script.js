@@ -1,7 +1,14 @@
-/*!
-* Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
+// script.js
+/* Obtém o valor do cookie "carrinho" */
+var carrinhoValue = '';
+var cookies = document.cookie.split(';');
+for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i].trim();
+    if (cookie.startsWith('carrinho=')) {
+        carrinhoValue = cookie.substring('carrinho='.length);
+        break;
+    }
+}
+
+// Exibe o valor do carrinho
+document.getElementById('carrinho-quantidade').textContent = carrinhoValue;
