@@ -13,7 +13,6 @@ public class FrutaService {
     private FrutaRepository repository;
 
     public FrutaService(FrutaRepository frutaRepository) {
-
         this.repository = frutaRepository;
     }
 
@@ -49,8 +48,13 @@ public class FrutaService {
             throw new FrutaNotFoundException("Fruta não encontrada");
         }
     }
+    public Fruta editar(Fruta f){
+        return repository.saveAndFlush(f);
+    }
 
     public Optional<Fruta> findById(Long id){
         return repository.findById(id);
     }
+
+
 }

@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tads.ufrn.provapw2.model.Fruta;
 import tads.ufrn.provapw2.model.Usuario;
+import tads.ufrn.provapw2.service.FileStorageService;
 import tads.ufrn.provapw2.service.FrutaService;
 import tads.ufrn.provapw2.service.UsuarioService;
 
@@ -18,9 +20,12 @@ import java.util.Optional;
 @Controller
 public class FrutaController {
     FrutaService frutaService;
+    private final FileStorageService fileStorageService;
 
-    public FrutaController(FrutaService frutaService) {
+
+    public FrutaController(FrutaService frutaService, FileStorageService fileStorageService) {
         this.frutaService = frutaService;
+        this.fileStorageService = fileStorageService;
     }
 
     @RequestMapping(value = {"/", "/index", "/index.html"}, method = RequestMethod.GET)
@@ -42,13 +47,16 @@ public class FrutaController {
         return "cadastrarPage.html";
     }
     @PostMapping("/salvar")
-    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors, RedirectAttributes redirectAttributes ){
-
-        if (errors.hasErrors()){
+    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
             return "cadastrarPage";
-        }else{
-            redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
+        } else {
 
+            f.setImagemUri(file.getOriginalFilename());
+            frutaService.editar(f);
+            fileStorageService.save(file);
+
+            redirectAttributes.addFlashAttribute("mensagem", "Operação concluída com sucesso.");
             frutaService.salvarFruta(f);
             return "redirect:/admin";
         }
