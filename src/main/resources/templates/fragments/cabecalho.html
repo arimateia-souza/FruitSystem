@@ -23,7 +23,13 @@
                     </ul>
                 </li>
             </ul>
-            <p>Bem-vindo, <span th:text="${#authentication.principal.username}"></span></p>
+
+
+
+            <p th:if="${#authorization.expression('isAuthenticated()')}">
+                Bem-vindo, <span th:text="${#authentication.principal.username}"></span>
+            </p>
+
             <form class="d-flex"  th:object="${usuario}">
                 <a class="btn btn-outline-dark" th:href="@{/login}">
                     Logout
