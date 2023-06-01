@@ -86,7 +86,8 @@ public class FrutaController {
     }
 
     @GetMapping("/sobre")
-    public String getSobrePage(Model model) {
+    public String getSobrePage(RedirectAttributes redirectAttributes) {
+
 
         return "sobrePage.html";
     }
