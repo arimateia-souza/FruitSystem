@@ -16,7 +16,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> {
                    auth.requestMatchers("/admin", "/cadastro","/salvar", "/editar", "/deletar" ).hasRole("ADMIN");
-                   auth.requestMatchers("/verCarrinho/", "/adicionarCarrinho", "/finalizarCompra").hasRole("USER");
+                   auth.requestMatchers("/verCarrinho", "/adicionarCarrinho", "/finalizarCompra").hasRole("USER");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(login -> login.loginPage("/login").permitAll())
