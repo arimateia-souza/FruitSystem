@@ -1,10 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
-
 <section class="py-5" th:fragment="cardFrutas">
-
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div class="col mb-5" th:each="fruta : ${listarFrutas}" th:object="${fruta}">
@@ -14,12 +11,11 @@
                             <img class="card-img-top" th:src="@{'/images/' + *{imagemUri}}" alt="..." />
                             <h5 class="fw-bolder" th:text="*{nome}"></h5>
                             <div class="justify-content-center small text-dark mb-2">
-                                ID:<div class="bi-star-fill" th:text="*{id}"></div><br/>
-                                Categoria:<div class="bi-star-fill" th:text="*{categoria}"></div><br/>
-                                Em estoque:<div class="bi-star-fill" th:text="*{qtdEstoque}"></div><br/>
-
+                                ID: <div class="bi-star-fill" th:text="*{id}"></div><br/>
+                                Categoria: <div class="bi-star-fill" th:text="*{categoria}"></div><br/>
+                                Em estoque: <div class="bi-star-fill" th:text="*{qtdEstoque}"></div><br/>
                             </div>
-                            R$ <p  th:text="*{preco}"></p>
+                            R$ <p th:text="*{preco}"></p>
                         </div>
                     </div>
                     <!-- Product actions-->
@@ -27,10 +23,11 @@
                         <div class="text-center">
                             <a class="btn btn-outline-dark mt-auto" th:href="@{/adicionarCarrinho(id = *{id})}">Adicionar ao carrinho</a>
                         </div>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
 </section>
+
 </html>

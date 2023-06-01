@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
+
 <head>
     <title>Ver Carrinho</title>
+    <link th:href="@{/css/login-style.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/js/script.js}" defer></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
+
 <body>
-<h1>Carrinho de Compras</h1>
+
 
 <form>
-    <tbody>
-    <tr th:each="fruta : ${carrinho}" th:object="${fruta}">
-        <td th:img="*{imagemUri}"></td>
-        <td>ID:</td>
-        <td th:text="*{id}"></td><br/>
-        <td>Nome:</td>
-        <td th:text="*{nome}"></td><br/>
-        <td>Preço:</td>
-        <td th:text="*{preco}"></td><br/>
-        <td>Categoria:</td>
-        <td th:text="*{categoria}"></td><br/>
-        <td>Em estoque:</td>
-        <td th:text="*{qtdEstoque}"></td><br/>
 
-    </tr>
-    </tbody>
+    <table>
+        <tbody>
+        <tr th:each="fruta : ${carrinho}" th:object="${fruta}">
+            <td><img th:src="@{'/images/' + *{imagemUri}}" alt="Imagem do Produto" class="img-thumbnail"></td>
+            <td>ID:</td>
+            <td th:text="*{id}"></td>
+            <td>Nome:</td>
+            <td th:text="*{nome}"></td>
+            <td>Preço:</td>
+            <td th:text="*{preco}"></td>
+            <td>Categoria:</td>
+            <td th:text="*{categoria}"></td>
+            <td>Em estoque:</td>
+            <td th:text="*{qtdEstoque}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </form>
-
-<a href="/finalizarCompra" class="btn btn-primary">Finalizar Compra</a>
-
+<div th:replace="/fragments/cabecalho ::cabecalho"></div>
 <!-- Exibe mensagem de carrinho vazio ou erro de sessão -->
-<div th:if="${mensagem}">
-    <p th:text="${mensagem}"></p>
+<h2 class="text-center"> Itens no meu carrinho</h2>
+
+<div class="container mt-5 ">
+    <p class="alert alert-info" th:text="${mensagem}" ></p>
+</div >
+
+
+<div class="text-center" ><a href="/finalizarCompra" class="btn btn-primary">Finalizar Compra</a>
+
+
+
 </div>
+<br>
+<br>
+<div th:replace="/fragments/rodape :: rodape"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
