@@ -6,7 +6,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -36,7 +35,7 @@ public class Fruta {
     private BigDecimal preco;
     @NotBlank(message = "Categoria é uma informação obrigatória.")
     @Size(max = 50)
-    private String categoria; // classifica a fruta como: "frutas cítricas", "frutas tropicais", "fruta vermelhas"
+    private String categoria;
     @NotNull
     private int qtdEstoque;
 

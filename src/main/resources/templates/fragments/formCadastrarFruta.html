@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <body>
 
-<form th:action="@{/salvar}" th:object="${fruta}" method="post" th:fragment="formCadastrarFruta"enctype="multipart/form-data" >
+<form th:action="@{/salvar}" th:object="${fruta}" method="post" th:fragment="formCadastrarFruta" enctype="multipart/form-data" >
 
   Nome: <input type="text" th:field="*{nome}">
   <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>

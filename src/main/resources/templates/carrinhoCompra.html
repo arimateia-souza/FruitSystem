@@ -8,8 +8,8 @@
 
 <form>
     <tbody>
-    <!-- Itera sobre a lista de frutas do carrinho -->
     <tr th:each="fruta : ${carrinho}" th:object="${fruta}">
+        <td th:img="*{imagemUri}"></td>
         <td>ID:</td>
         <td th:text="*{id}"></td><br/>
         <td>Nome:</td>

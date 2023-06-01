@@ -20,9 +20,9 @@ public class FileStorageService {
 
     private final Path root = Paths.get("src/main/webapp/WEB-INF/images");
 
-    public FileStorageService() {
-        //init();
-    }
+//    public FileStorageService() {
+//        //init();
+//    }
 
     public void init() {
         try {
@@ -31,14 +31,14 @@ public class FileStorageService {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
     }
-    // ...
+
 
     public void save(MultipartFile file) {
         try {
             Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
         } catch (Exception e) {
-
-//            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+// CASO DE ERRO TEM Q COMENTAR A LINHA ABAIXO
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
     }
 

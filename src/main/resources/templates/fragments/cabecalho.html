@@ -23,10 +23,12 @@
                     </ul>
                 </li>
             </ul>
+            <p>Bem-vindo, <span th:text="${#authentication.principal.username}"></span></p>
             <form class="d-flex"  th:object="${usuario}">
-<!--                <a class="btn btn-outline-dark" th:href="@{/login}">-->
-<!--                    Logout-->
-<!--                </a>-->
+                <a class="btn btn-outline-dark" th:href="@{/login}">
+                    Logout
+                </a>
+                <a th:href="@{/verCarrinho}"  class="btn btn-outline-dark" >Ver Carrinho</a>
                 <button class="btn btn-outline-dark" type="submit" th:href="@{/verCarrinho}">
                     <i class="bi-cart-fill me-1"></i>
                     Carrinho

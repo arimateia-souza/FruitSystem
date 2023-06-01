@@ -47,7 +47,8 @@ public class FrutaController {
         return "cadastrarPage.html";
     }
     @PostMapping("/salvar")
-    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors, @RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes) {
+    public String doSalvar(@ModelAttribute @Valid Fruta f, Errors errors, @RequestParam(name = "file") MultipartFile file,RedirectAttributes redirectAttributes) {
+
         if (errors.hasErrors()) {
             return "cadastrarPage";
         } else {
