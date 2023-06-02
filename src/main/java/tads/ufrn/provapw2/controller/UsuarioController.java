@@ -36,7 +36,7 @@ public class UsuarioController {
     public String doSalvarUsuario(@ModelAttribute Usuario u){
         service.create(u);
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/listUsuarios")

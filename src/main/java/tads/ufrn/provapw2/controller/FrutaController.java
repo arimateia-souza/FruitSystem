@@ -1,7 +1,12 @@
 package tads.ufrn.provapw2.controller;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -9,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tads.ufrn.provapw2.model.Fruta;
-import tads.ufrn.provapw2.model.Usuario;
 import tads.ufrn.provapw2.service.FileStorageService;
 import tads.ufrn.provapw2.service.FrutaService;
-import tads.ufrn.provapw2.service.UsuarioService;
 
+
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +34,8 @@ public class FrutaController {
     }
 
     @RequestMapping(value = {"/", "/index", "/index.html"}, method = RequestMethod.GET)
-    public String getIndex(Model model) {
-
+    public String getIndex(Model model, Principal principal) {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Fruta> frutas = frutaService.listarFrutas();
 
         model.addAttribute("listarFrutas", frutas);
@@ -38,6 +43,16 @@ public class FrutaController {
        // cookie.setMaxAge(60*60*24);
         //model.addCookie(cookie);
         return "index.html";
+    }
+
+    @GetMapping("/logout")
+    public String performLogout(HttpServletRequest request, HttpServletResponse response) {
+        // .. perform logout
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/cadastro")
